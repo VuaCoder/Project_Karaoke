@@ -10,7 +10,7 @@ exports.showAddForm = async (req, res) => {
 };
 exports.addBooking = async (req, res) => {
   const { customerName, roomNumber, startDate, endDate } = req.body;
-  const room = Karaoke.findOne(roomNumber);
+  const room = await Karaoke.findOne(roomNumber);
   if (!room) {
     return res.send("This room does not exist");
   }
@@ -25,7 +25,7 @@ exports.addBooking = async (req, res) => {
     totalAmount,
   });
 
-  res.render("/bookings");
+  res.redirect("/bookings");
 };
 exports.showUpdateForm = async (req, res) => {
   const booking = await Booking.findById(req.params.id);
