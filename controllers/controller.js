@@ -9,19 +9,19 @@ exports.showAddForm = async (req, res) => {
   res.render("bookRoom", { rooms });
 };
 exports.addBooking = async (req, res) => {
-  const { customerName, roomNumber, startTime, endTime } = req.body;
-  const room = await Karaoke.findOne({ roomNumber });
+  const { customerName, roomNumber, startDate, endDate } = req.body;
+  const room = await Karaoke.findOne(roomNumber);
   if (!room) {
     return res.send("This room does not exist");
   }
-  const hours = (new Date(endTime) - new Date(startTime)) / (1000 * 60 * 60);
+  const hours = (new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60);
   const totalAmount = hours * room.pricePerHour;
 
   await Booking.create({
     customerName,
     roomNumber,
-    startTime,
-    endTime,
+    startDate,
+    endDate,
     totalAmount,
   });
 
