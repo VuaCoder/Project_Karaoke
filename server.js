@@ -1,11 +1,12 @@
 require("dotenv").config();
 const express = require("express");
+const path = require("path");
 const database = require("./config/database");
 const bookingRoutes = require("./routes/bookingRoutes");
 const app = express();
 
 app.set("view engine", "ejs");
-app.set("views", "./views");
+app.set("views", path.join(__dirname, "views"));
 database();
 app.use("/bookings", bookingRoutes);
 app.get("/", (req, res) => {
