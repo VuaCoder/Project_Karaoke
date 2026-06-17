@@ -11,7 +11,11 @@ app.use("/bookings", bookingRoutes);
 app.get("/", (req, res) => {
   res.redirect("/bookings");
 });
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`Server running at http://localhost:${process.env.PORT}`);
-});
+if (require.main === module) {
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+  });
+}
 module.exports = app;
+
